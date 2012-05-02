@@ -9,15 +9,15 @@ Sample usage:
 
 In your html:
 
-<div id="my_div">
-  ...
-</div>
+    <div id="my_div">
+      ...
+    </div>
 
 In your javascript:
 
-var options = {
-  top: 0, // This represents the buffer you want between the top of the page and the div in px. Default is 0.
-  min_width: 0 // This represents the minimum screen width that the stickiness will be applied to
-};
-$('#my_div').sticky_div(options);
+    var options = {
+      top: 0, // This represents the buffer you want between the top of the page and the div in px. Default is 0.
+      min_width: 0 // This represents the minimum screen width that the stickiness will be applied to
+    };
+    $('#my_div').sticky_div(options);
 
