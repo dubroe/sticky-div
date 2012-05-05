@@ -8,20 +8,24 @@
     
     $("<style type='text/css'> .sticky-div{ position:fixed; top:" + options.top + "px;} </style>").appendTo("head");
     
-    return this.each(function() {
-      obj = $(this);
-      obj.before("<div></div>");
-      $(window).scroll(function() {
-        if($(window).width() >= options.min_width) {
+    var selector = this;
+    
+    selector.each(function() {
+      $(this).before("<div></div>");
+    });
+    
+    $(window).scroll(function() {
+      if($(window).width() >= options.min_width) {
+        selector.each(function() {
           var window_top = $(window).scrollTop();
-          var div_top = obj.prev().offset().top;
+          var div_top = $(this).prev().offset().top;
           if (window_top > (div_top - options.top)) {
-            obj.addClass('sticky-div');
+            $(this).addClass('sticky-div');
           } else {
-            obj.removeClass('sticky-div');
+            $(this).removeClass('sticky-div');
           }
-        }
-      });
+        });
+      }
     });
   };
 })(jQuery);
