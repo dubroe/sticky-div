@@ -3,7 +3,7 @@
     var defaults = {
       top: 0,
       min_width: 0,
-      max_div_height: 600
+      bottom: 0
     };
     var options = $.extend(defaults, options);
     
@@ -17,11 +17,12 @@
     
     $(window).scroll(function() {
       if($(window).width() >= options.min_width) {
+        var window_top = $(window).scrollTop();
+        var window_height = $(window).height();
         selector.each(function() {
-          var window_top = $(window).scrollTop();
           var div_top = $(this).prev().offset().top;
           var div_height = $(this).height();
-          if ((window_top > (div_top - options.top)) && (div_height <= options.max_div_height)) {
+          if ((window_top > (div_top - options.top)) && (div_height < (window_height - options.bottom))) {
             $(this).addClass('sticky-div');
           } else {
             $(this).removeClass('sticky-div');
