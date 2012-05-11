@@ -17,7 +17,8 @@ In your javascript:
 
     var options = {
       top: 0, // This represents the buffer you want between the top of the page and the div in px. Default is 0.
-      min_width: 0 // This represents the minimum screen width that the stickiness will be applied to
+      min_width: 0, // This represents the minimum screen width that the stickiness will be applied to. Default is 0.
+      max_div_height: 600 // This represents the maximum div size that will still have it be sticky. Default is 600.
     };
     $('#my_div').sticky_div(options); // Or just $('#my_div').sticky_div();
 
