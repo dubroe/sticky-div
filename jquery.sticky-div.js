@@ -7,16 +7,31 @@
       outer_div: null
     };
     var options = $.extend(defaults, options);
-    $("<style type='text/css'> .sticky-div{ position:fixed; top:" + options.top + "px;} </style>").appendTo("head");
-    
+
+    // added !important to override any current positioning or top.
+    $("<style type='text/css'> .sticky-div{ position:fixed !important; top:" + options.top + "px !important;} </style>").appendTo("head");
+
     var selector = this;
     
+    // added a class to the anchor, and checked for it, so that the anchor <div/> is only added the once.
     selector.each(function() {
-      $(this).before("<div></div>");
+      if ($(this).siblings(".sticky-anchor").length === 0) {
+          $(this).before("<div class='sticky-anchor'></div>");
+      }
     });
-    
-    $(window).scroll(function() {
-      if($(window).width() >= options.min_screen_width) {
+
+    // call to refactored method, so that it is not only a window scroll which triggers it (if, for example, my add to basket button is at the bottom of the page, and my anchor is at the top
+    $.sticky_div(selector, options);
+    $(window).scroll(function () {
+      if ($(window).width() >= options.min_screen_width) {
+        // called again on scroll.
+        $.sticky_div(selector, options);
+      }
+    });
+  };
+
+  // refactored method, which does the magic
+  $.sticky_div = function (selector, options) {
         var window_top = $(window).scrollTop();
         var window_height = $(window).height();
         selector.each(function() {
@@ -28,7 +43,5 @@
             $(this).removeClass('sticky-div');
           }
         });
-      }
-    });
-  };
+  }
 })(jQuery);
