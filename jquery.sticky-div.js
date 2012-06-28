@@ -8,19 +8,19 @@
     };
     var options = $.extend(defaults, options);
 
-    // added !important to override any current positioning or top.
+    // !important to override any current positioning or top.
     $("<style type='text/css'> .sticky-div{ position:fixed !important; top:" + options.top + "px !important;} </style>").appendTo("head");
 
     var selector = this;
     
-    // added a class to the anchor, and checked for it, so that the anchor <div/> is only added the once.
+    // add a class to the anchor, and check for it, so that the anchor <div/> is only added the once.
     selector.each(function() {
       if ($(this).siblings(".sticky-anchor").length === 0) {
         $(this).before("<div class='sticky-anchor'></div>");
       }
     });
 
-    // call to refactored method, so that it is not only a window scroll which triggers it (if, for example, my add to basket button is at the bottom of the page, and my anchor is at the top
+    // call to main method, so that it is not only a window scroll which triggers it
     $.sticky_div(selector, options);
     $(window).scroll(function () {
       if ($(window).width() >= options.min_screen_width) {
@@ -30,7 +30,7 @@
     });
   };
 
-  // refactored method, which does the magic
+  // main method, which does the magic
   $.sticky_div = function (selector, options) {
     var window_top = $(window).scrollTop();
     var window_height = $(window).height();
