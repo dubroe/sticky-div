@@ -16,7 +16,7 @@
     // added a class to the anchor, and checked for it, so that the anchor <div/> is only added the once.
     selector.each(function() {
       if ($(this).siblings(".sticky-anchor").length === 0) {
-          $(this).before("<div class='sticky-anchor'></div>");
+        $(this).before("<div class='sticky-anchor'></div>");
       }
     });
 
@@ -32,16 +32,16 @@
 
   // refactored method, which does the magic
   $.sticky_div = function (selector, options) {
-        var window_top = $(window).scrollTop();
-        var window_height = $(window).height();
-        selector.each(function() {
-          var div_top = $(this).prev().offset().top;
-          var div_height = $(this).outerHeight();
-          if ((!options.outer_div || (div_height < options.outer_div.height())) && (window_top > (div_top - options.top)) && (div_height < (window_height - options.bottom))) {
-            $(this).addClass('sticky-div');
-          } else {
-            $(this).removeClass('sticky-div');
-          }
-        });
+    var window_top = $(window).scrollTop();
+    var window_height = $(window).height();
+    selector.each(function() {
+      var div_top = $(this).prev().offset().top;
+      var div_height = $(this).outerHeight();
+      if ((!options.outer_div || (div_height < options.outer_div.height())) && (window_top > (div_top - options.top)) && (div_height < (window_height - options.bottom))) {
+        $(this).addClass('sticky-div');
+      } else {
+        $(this).removeClass('sticky-div');
+      }
+    });
   }
 })(jQuery);
