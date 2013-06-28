@@ -39,3 +39,5 @@ Plugin supports multiple sticky elements with different options as well:
     $('#my-div').stickyEl();
     $('#my-other-div').stickyEl(top: 50);
     $('#another-div').stickyEl(top: 150);
+    
+Built with use of [jQuery Boilerplate](https://github.com/jquery-boilerplate/boilerplate/) available under the [MIT License](http://opensource.org/licenses/mit-license.php).
