@@ -2,13 +2,15 @@
   var stickyEl = "stickyEl",
     defaults = {
       top: 0,
+      offsetTop: 0,
+      writeStyle: true,
       minScreenWidth: 0,
       bottom: 0,
       className: null,
-      outerEl: null
+      outerEl: null,
+      toggleEl: false
     };
 
-  // The actual plugin constructor
   function StickyEl( elem, options ) {
     this.$elem = $(elem);
     this.options = $.extend( {}, defaults, options );
@@ -28,12 +30,12 @@
       $("<style type='text/css'> .sticky-el{ position:fixed !important;} </style>").appendTo("head");
       style = elem.attr('style');
 
-      //check if element has any style attribute defined
-      if (style !== undefined){
-        //if so, prevent overwritting original style
-        elem.attr('style', style + ' top: ' + top + 'px !important;');
-      } else {
-        elem.attr('style', 'top: ' + top + 'px !important;');
+      if (options.writeStyle) {
+        if (style !== undefined) {
+          elem.attr('style', style + ' top: ' + top + 'px !important;');
+        } else {
+          elem.attr('style', 'top: ' + top + 'px !important;');
+        }
       }
     
       if (!elem.prev().hasClass(".sticky-anchor")) {
@@ -43,40 +45,66 @@
       this.onscroll(elem, options);
     },
 
-    //on scroll event listener
-    onscroll: function(elem, options){
+    onscroll: function(elem, options) {
       if ($(window).width() >= options.minScreenWidth) {
         $(window).on('scroll', {'elem': elem, 'options': options}, this.recalc);
       }
     },
 
-    //main method which does the magic
-    recalc: function(ev){
-      var elem = ev.data['elem'];
-      var options = ev.data['options'];
+    offscroll: function(elem) {
+      $(window).off('scroll', elem, this.recalc);
+    },
+
+    offscroll_all: function() {
+      $(window).off('scroll', this.recalc);
+    },
+
+    recalc: function(ev) {
+      var elem = ev.data.elem;
+      var options = ev.data.options;
       var top = options.top;
       var windowTop = $(window).scrollTop();
       var windowHeight = $(window).height();
       var elemTop = elem.prev().offset().top;
       var elemHeight = elem.outerHeight();
       var className = options.className;
+      var outerEl = options.outerEl;
+      var offsetTop = options.offsetTop;
+      var toggleEl = options.toggleEl;
+      var el, elClass;
       
-      if ((!options.outerEl || (elemHeight < options.outerEl.height())) && (windowTop > (elemTop - top)) && (elemHeight < (windowHeight - options.bottom))) {
-        //add sticky-el class to the element (and custom className if it is defined)
+      if ((!outerEl || (elemHeight < outerEl.height())) && (windowTop + offsetTop > (elemTop - top)) && (elemHeight < (windowHeight - options.bottom))) {
         !className ? elem.addClass('sticky-el') : elem.addClass('sticky-el ' + className);
+        if (toggleEl) {
+          try{
+            el = toggleEl[0];
+            elClass = toggleEl[1];
+            $(el).addClass(elClass);
+          } catch(e) {
+            throw new Error();
+          }
+        }
       } else {
-        //remove sticky-el class (and className if it is defined)
         !className ? elem.removeClass('sticky-el') : elem.removeClass('sticky-el ' + className);
+        if (toggleEl) {
+          try{
+            el = toggleEl[0];
+            elClass = toggleEl[1];
+            $(el).removeClass(elClass);
+          } catch(e) {
+            throw new Error();
+          }
+        }
       }
     }
   };
 
-  // A really lightweight plugin wrapper around the constructor,
-  // preventing against multiple instantiations
   $.fn[stickyEl] = function (options) {
     return this.each(function () {
       if (!$.data(this, "plugin_" + stickyEl)) {
         $.data(this, "plugin_" + stickyEl, new StickyEl( this, options ));
+      } else if (StickyEl.prototype[options]) {
+        $.data(this, 'plugin_' + stickyEl)[options]();
       }
     });
   };
