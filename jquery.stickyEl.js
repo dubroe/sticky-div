@@ -75,25 +75,17 @@
       
       if ((!outerEl || (elemHeight < outerEl.height())) && (windowTop + offsetTop > (elemTop - top)) && (elemHeight < (windowHeight - options.bottom))) {
         !className ? elem.addClass('sticky-el') : elem.addClass('sticky-el ' + className);
-        if (toggleEl) {
-          try{
-            el = toggleEl[0];
-            elClass = toggleEl[1];
-            $(el).addClass(elClass);
-          } catch(e) {
-            throw new Error();
-          }
+        if (toggleEl instanceof Array) {
+          el = toggleEl[0];
+          elClass = toggleEl[1];
+          $(el).addClass(elClass);
         }
       } else {
         !className ? elem.removeClass('sticky-el') : elem.removeClass('sticky-el ' + className);
-        if (toggleEl) {
-          try{
-            el = toggleEl[0];
-            elClass = toggleEl[1];
-            $(el).removeClass(elClass);
-          } catch(e) {
-            throw new Error();
-          }
+        if (toggleEl instanceof Array) {
+          el = toggleEl[0];
+          elClass = toggleEl[1];
+          $(el).removeClass(elClass);
         }
       }
     }
