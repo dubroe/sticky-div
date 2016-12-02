@@ -4,7 +4,8 @@
       top: 0,
       min_screen_width: 0,
       bottom: 0,
-      outer_div: null
+      outer_div: null,
+      style_css: null
     };
     var options = $.extend(defaults, options);
 
@@ -40,9 +41,15 @@
       var div_height = $(this).outerHeight();
       if ((!options.outer_div || (div_height < $(options.outer_div).height())) && (window_top > (div_top - options.top)) && (div_height < (window_height - options.bottom))) {
         $(this).addClass('sticky-div');
+        if (options.style_css != null) {
+          $(this).addClass(options.style_css);
+        }
       } else {
         $(this).removeClass('sticky-div');
+        if (options.style_css != null) {
+          $(this).removeClass(options.style_css);
+        }
       }
     });
-  }
+  };
 })(jQuery);
