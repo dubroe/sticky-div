@@ -3,6 +3,7 @@
     var defaults = {
       top: 0,
       min_screen_width: 0,
+      min_screen_height: 0,
       bottom: 0,
       outer_div: null,
       style_css: null
@@ -43,6 +44,7 @@
       bool_sticky_div = bool_sticky_div && (window_top > (div_top - options.top));
       bool_sticky_div = bool_sticky_div && (div_height < (window_height - options.bottom));
       bool_sticky_div = bool_sticky_div && ($(window).width() >= options.min_screen_width);
+      bool_sticky_div = bool_sticky_div && ($(window).height() >= options.min_screen_height);
       
       if (bool_sticky_div) {
         $(this).addClass('sticky-div');
