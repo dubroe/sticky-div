@@ -24,10 +24,8 @@
     // call to main method, so that it is not only a window scroll which triggers it
     $.sticky_div(selector, options);
     $(window).scroll(function () {
-      if ($(window).width() >= options.min_screen_width) {
-        // called again on scroll.
-        $.sticky_div(selector, options);
-      }
+      // called again on scroll.
+      $.sticky_div(selector, options);
     });
   };
 
@@ -44,6 +42,7 @@
       var bool_sticky_div = (!options.outer_div || (div_height < $(options.outer_div).height()));
       bool_sticky_div = bool_sticky_div && (window_top > (div_top - options.top));
       bool_sticky_div = bool_sticky_div && (div_height < (window_height - options.bottom));
+      bool_sticky_div = bool_sticky_div && ($(window).width() >= options.min_screen_width);
       
       if (bool_sticky_div) {
         $(this).addClass('sticky-div');
