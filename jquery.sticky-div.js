@@ -35,11 +35,17 @@
   $.sticky_div = function (selector, options) {
     var window_top = $(window).scrollTop();
     var window_height = $(window).height();
+    
     selector.each(function () {
       $(this).width($(this).width());
       var div_top = $(this).prev().offset().top;
       var div_height = $(this).outerHeight();
-      if ((!options.outer_div || (div_height < $(options.outer_div).height())) && (window_top > (div_top - options.top)) && (div_height < (window_height - options.bottom))) {
+      
+      var bool_sticky_div = (!options.outer_div || (div_height < $(options.outer_div).height()));
+      bool_sticky_div = bool_sticky_div && (window_top > (div_top - options.top));
+      bool_sticky_div = bool_sticky_div && (div_height < (window_height - options.bottom));
+      
+      if (bool_sticky_div) {
         $(this).addClass('sticky-div');
         if (options.style_css != null) {
           $(this).addClass(options.style_css);
