@@ -33,6 +33,7 @@
   // main method, which does the magic
   $.sticky_div = function (selector, options) {
     var window_top = $(window).scrollTop();
+    var window_width = $(window).width();
     var window_height = $(window).height();
     
     selector.each(function () {
@@ -43,8 +44,8 @@
       var bool_sticky_div = (!options.outer_div || (div_height < $(options.outer_div).height()));
       bool_sticky_div = bool_sticky_div && (window_top > (div_top - options.top));
       bool_sticky_div = bool_sticky_div && (div_height < (window_height - options.bottom));
-      bool_sticky_div = bool_sticky_div && ($(window).width() >= options.min_screen_width);
-      bool_sticky_div = bool_sticky_div && ($(window).height() >= options.min_screen_height);
+      bool_sticky_div = bool_sticky_div && (window_width >= options.min_screen_width);
+      bool_sticky_div = bool_sticky_div && (window_height >= options.min_screen_height);
       
       if (bool_sticky_div) {
         $(this).addClass('sticky-div');
