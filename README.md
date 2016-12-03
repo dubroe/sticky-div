@@ -23,6 +23,7 @@ Sample usage:
     var options = {
       top: 0,
       min_screen_width: 0,
+      min_screen_height: 0,
       bottom: 0,
       outer_div: null,
       style_css: null
@@ -37,6 +38,9 @@ This represents the buffer you want between the top of the page and the `div` in
 
 - `min_screen_width` (default: `0px`)
 This represents the minimum screen width that the stickiness will be applied at.
+
+- `min_screen_height` (default: `0px`)
+This represents the minimum screen height that the stickiness will be applied at.
 
 - `bottom` (default: `0px`)
 This represents the buffer you want between the bottom of the page and the `div` in pixels.
