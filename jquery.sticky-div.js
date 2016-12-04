@@ -22,12 +22,15 @@
       }
     });
 
-    // call to main method, so that it is not only a window scroll which triggers it
-    $.sticky_div(selector, options);
-    $(window).scroll(function () {
-      // called again on scroll.
+    var call_sticky_div = function() {
       $.sticky_div(selector, options);
-    });
+    };
+    // call to main method, so that it is not only a window scroll which triggers it
+    call_sticky_div();
+    // called again on scroll
+    $(window).scroll(call_sticky_div);
+    // called again on resize
+    $(window).resize(call_sticky_div);
   };
 
   // main method, which does the magic
