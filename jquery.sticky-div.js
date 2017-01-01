@@ -17,7 +17,7 @@
     
     // add a class to the anchor, and check for it, so that the anchor <div/> is only added the once.
     selector.each(function () {
-      if (!$(this).prev().hasClass(".sticky-anchor")) {
+      if (!$(this).prev().hasClass("sticky-anchor")) {
         $(this).before("<div class='sticky-anchor'></div>");
       }
     });
