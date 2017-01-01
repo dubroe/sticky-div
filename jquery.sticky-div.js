@@ -25,8 +25,8 @@
     var call_sticky_div = function() {
       $.sticky_div(selector, options);
     };
-    // call to main method, so that it is not only a window scroll which triggers it
-    call_sticky_div();
+    // call main method when DOM is ready
+    $(document).ready(call_sticky_div);
     // called again on scroll
     $(window).scroll(call_sticky_div);
     // called again on resize
