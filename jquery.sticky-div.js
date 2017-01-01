@@ -41,7 +41,8 @@
     
     selector.each(function () {
       $(this).width($(this).width());
-      var div_top = $(this).prev().offset().top;
+      var anchor = $(this).prev();
+      var div_top = anchor.offset().top;
       var div_height = $(this).outerHeight();
       
       var bool_sticky_div = (!options.outer_div || (div_height < $(options.outer_div).height()));
@@ -55,11 +56,13 @@
         if (options.style_css != null) {
           $(this).addClass(options.style_css);
         }
+        anchor.height(div_height);
       } else {
         $(this).removeClass('sticky-div');
         if (options.style_css != null) {
           $(this).removeClass(options.style_css);
         }
+        anchor.height(0);
       }
     });
   };
