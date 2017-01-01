@@ -1,7 +1,7 @@
 sticky-div
 ==========
 
-A jQuery plugin that forces a `div` to stick to the top of the viewport if the user scrolls past it.
+A jQuery plugin that forces a `div` to stick to the top or bottom of the viewport if the user scrolls past it.
 
 Inspired by the blog post _["Stick div at top after scrolling"](http://blog.yjl.im/2010/01/stick-div-at-top-after-scrolling.html)_ by **YJL**.
 
@@ -25,6 +25,7 @@ Sample usage:
       min_screen_width: 0,
       min_screen_height: 0,
       bottom: 0,
+      stick_bottom: false,
       outer_div: null,
       style_css: null
     };
@@ -44,6 +45,9 @@ This represents the minimum screen height that the stickiness will be applied at
 
 - `bottom` (default: `0px`)<br/>
 This represents the buffer you want between the bottom of the page and the `div` in pixels.
+
+- `stick_bottom` (default: `false`)<br/>
+This is a boolean value (`true`/`false`) to indicate if the sticky div sticks to the bottom of the viewport.
 
 - `outer_div` (default: `null`)<br/>
 This is a jQuery or DOM element whose height needs to be greater than the `div` in order to make it sticky.
